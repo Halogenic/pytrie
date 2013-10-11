@@ -40,14 +40,14 @@ def traverse(node):
 def find(node, prefix):
 	"Find the subnode that matches this prefix"
 
+	if not prefix:
+		return node
+
 	head = prefix[0]
 	tail = prefix[1:]
 
 	if not node:
 		return None
-
-	if not tail:
-		return node
 
 	for char, child in node.items():
 		if head == char:
@@ -81,7 +81,7 @@ def main():
 
 	print contains(root, "like")
 
-	print find(root, "like")
+	print find(root, "li")
 
 
 if __name__ == "__main__":
