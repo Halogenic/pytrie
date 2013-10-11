@@ -1,4 +1,4 @@
-py-trie
+pytrie
 =======
 
 Trie implementation in Python
