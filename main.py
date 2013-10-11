@@ -1,4 +1,29 @@
 
+"""
+Implements a basic Trie data structure in a simple way
+using Python dicts.
+
+The reference implementation is specific to strings. If the program
+is run it will create a Trie from the Linux system /usr/share/dict/words and take
+one command line argument from the user to search the dictionary of words
+that have the user argument as their prefix.
+
+e.g.
+
+python main.py listen
+
+>>> ['listenable',
+ 'listenings',
+ 'listens',
+ 'listenership',
+ 'listener-in',
+ 'listened']
+"""
+
+import pprint
+import sys
+
+DICTIONARY = "/usr/share/dict/words"
 
 
 def contains(node, word):
@@ -73,15 +98,19 @@ def build_trie(words):
 
 
 def main():
-	root = build_trie(["list", "like", "limp"])
+	try:
+		words = open(DICTIONARY).read().splitlines()
+	except IOError:
+		print "Could not open %s" % DICTIONARY
+		sys.exit(1)
 
-	print root
+	prefix = sys.argv[1]
 
-	print traverse(root)
+	root = build_trie(words)
 
-	print contains(root, "like")
+	suffixes = traverse(find(root, prefix))
 
-	print find(root, "li")
+	pprint.pprint([prefix + suffix for suffix in suffixes])
 
 
 if __name__ == "__main__":
